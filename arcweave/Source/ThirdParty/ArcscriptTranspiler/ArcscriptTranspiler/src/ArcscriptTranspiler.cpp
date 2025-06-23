@@ -1,9 +1,11 @@
-#if defined _WIN64
+
 #pragma once
 #include "ArcscriptTranspiler.h"
 #include "ArcscriptErrorListener.h"
 #include <sstream>
 #include <iterator>
+
+#if defined _WIN64
 #include <windows.h>
 #endif
 
@@ -97,7 +99,7 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput* runScriptExport(const char* code, con
     transpilerOutput = transpiler.runScript(sCode);
 
     UTranspilerOutput* uTranspilerOutput = new UTranspilerOutput();
-    uTranspilerOutput->output = _strdup(transpilerOutput.output.c_str());
+    uTranspilerOutput->output = strdup(transpilerOutput.output.c_str());
     uTranspilerOutput->type = transpilerOutput.type;
     
     if (transpilerOutput.type == InputType::CONDITION) {
@@ -110,12 +112,12 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput* runScriptExport(const char* code, con
     size_t i = 0;
     for (auto change : transpilerOutput.changes) {
         UVariableChange uChange;
-        uChange.varId = _strdup(change.first.c_str());
+        uChange.varId = strdup(change.first.c_str());
 
         if (change.second.type() == typeid(std::string)) {
             uChange.type = VariableType::AW_STRING;
             std::string string_result = std::any_cast<std::string>(change.second);
-            uChange.string_result = _strdup(string_result.c_str());
+            uChange.string_result = strdup(string_result.c_str());
         }
         else if (change.second.type() == typeid(int)) {
             uChange.type = VariableType::AW_INTEGER;

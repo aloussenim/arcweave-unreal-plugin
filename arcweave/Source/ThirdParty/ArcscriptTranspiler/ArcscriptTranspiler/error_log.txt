@@ -1,0 +1,18 @@
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Assert: platformExpert,  value: 0
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Failed to get AppleVirtualPlatformARMPE service.
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Assert: platformExpert,  value: 0
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Failed to get AppleVirtualPlatformARMPE service.
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Assert: platformExpert,  value: 0
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Failed to get AppleVirtualPlatformARMPE service.
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Assert: platformExpert,  value: 0
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Failed to get AppleVirtualPlatformARMPE service.
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Assert: platformExpert,  value: 0
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Failed to get AppleVirtualPlatformARMPE service.
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Assert: platformExpert,  value: 0
+AVPIdentity: AppleVirtualPlatformHostKey.mm:234: Failed to get AppleVirtualPlatformARMPE service.
+** BUILD FAILED **
+
+
+The following build commands failed:
+	Ld /Users/admin/git/arcweave-unreal-plugin/arcweave/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/ArcscriptTranspiler.build/Intermediates.noindex/ArcscriptTranspiler.build/Release/ArcscriptTranspiler.build/Objects-normal/arm64/Binary/libArcscriptTranspiler.dylib normal arm64 (in target 'ArcscriptTranspiler' from project 'ArcscriptTranspiler')
+(1 failure)

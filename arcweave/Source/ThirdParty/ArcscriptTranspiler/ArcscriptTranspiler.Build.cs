@@ -17,24 +17,30 @@ public class ArcscriptTranspiler : ModuleRules
             // Ensure that the DLL is staged along with the executable
             RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/antlr4-runtime.dll");
             RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
-
-            PublicIncludePaths.AddRange(new string[]
-            {
-                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/antlr4-runtime/src",
-                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src",
-                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptParser",
-                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptLexer"
-            });
-
-            PublicDependencyModuleNames.AddRange(new string[] {
-                "Core",
-                "Projects",
-                "CoreUObject",
-                "Json",
-                "JsonUtilities",
-                "Engine",
-                "DeveloperSettings"
-            });
         }
+        else if (Target.Platform == UnrealTargetPlatform.Mac)
+        {
+            // Ensure that the DLL is staged along with the executable
+            RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libantlr4-runtime.dylib");
+            RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libArcscriptTranspiler.dylib");
+        }
+
+        PublicIncludePaths.AddRange(new string[]
+        {
+            "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/antlr4-runtime/src",
+            "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src",
+            "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptParser",
+            "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptLexer"
+        });
+
+        PublicDependencyModuleNames.AddRange(new string[] {
+            "Core",
+            "Projects",
+            "CoreUObject",
+            "Json",
+            "JsonUtilities",
+            "Engine",
+            "DeveloperSettings"
+        });
     }
 }

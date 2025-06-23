@@ -4,7 +4,7 @@
 #include "Core.h"
 #include "Modules/ModuleManager.h"
 #include "Interfaces/IPluginManager.h"
-#include "..\Public\ArcweaveSettings.h"
+#include "../Public/ArcweaveSettings.h"
 #include "ISettingsModule.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -27,8 +27,9 @@ void FarcweaveModule::StartupModule()
     FPlatformProcess::AddDllDirectory(*FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/x64/Release")));
     ArcscriptTranspilerPath = FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll"));
 #elif PLATFORM_MAC
-	//Antlr4LibraryPath = FPaths::Combine(*BaseDir, TEXT("Source/ThirdParty/arcweaveLibrary/Mac/Release/libExampleLibrary.dylib"));
-	#elif PLATFORM_LINUX
+	// Antlr4LibraryPath = FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libantlr4-runtime.dylib"));
+    ArcscriptTranspilerPath = FPaths::Combine(*BaseDir, TEXT("/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libArcscriptTranspiler.dylib"));
+#elif PLATFORM_LINUX
 	//Antlr4LibraryPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/arcweaveLibrary/Linux/x86_64-unknown-linux-gnu/libExampleLibrary.so"));
 	#endif // PLATFORM_WINDOWS
 	ArcscriptTranspilerHandle = !ArcscriptTranspilerPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*ArcscriptTranspilerPath) : nullptr;

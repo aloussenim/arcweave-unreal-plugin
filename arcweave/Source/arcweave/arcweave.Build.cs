@@ -8,16 +8,29 @@ public class arcweave : ModuleRules
 	public arcweave(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-		// for windows only? check this afterwards?
-		bUseRTTI = true;
-		// we are using exceptions so we have to enable that
-		bEnableExceptions = true;
-		PublicAdditionalLibraries.Add(Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "x64", "Release", "ArcscriptTranspiler.lib"));
-		//PublicDelayLoadDLLs.Add("ArcscriptTranspiler.dll");
-		RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
+
+        if (Target.Platform == UnrealTargetPlatform.Win64)
+		{
+			bUseRTTI = true;
+			PublicAdditionalLibraries.Add(Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "x64", "Release", "ArcscriptTranspiler.lib"));
+			//PublicDelayLoadDLLs.Add("ArcscriptTranspiler.dll");
+			RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
+		}
+		else if (Target.Platform == UnrealTargetPlatform.Mac)
+		{
+            string MacLibPath = Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "Mac", "Release");
+
+            PublicAdditionalLibraries.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
+			RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libArcscriptTranspiler.dylib");
+            PublicDelayLoadDLLs.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libArcscriptTranspiler.dylib");
+		}
 		PublicIncludePaths.AddRange(
 			new string[] {
-				// ... add public include paths required here ...
+				Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "ArcscriptTranspiler", "src"),
+				// Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptLexer
+				Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "ArcscriptTranspiler", "src", "Generated", "ArcscriptParser"),
+				Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "ArcscriptTranspiler", "src", "Generated", "ArcscriptLexer"),
+				Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "antlr4-runtime", "src"),
 			}
 		);
 				
@@ -34,7 +47,6 @@ public class arcweave : ModuleRules
 			{
 				"Core",
 				"CoreUObject",
-				"ArcscriptTranspiler",
 				"Projects",
 				"Json",
 				"JsonUtilities", 

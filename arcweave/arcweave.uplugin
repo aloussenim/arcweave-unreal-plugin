@@ -15,10 +15,16 @@
 	"IsExperimentalVersion": false,
 	"Installed": false,
 	"Modules": [
-		{
-			"Name": "arcweave",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
+        {
+            "Name": "arcweave",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "BlacklistPlatforms": [
+                "Android",
+                "IOS",
+                "TVOS",
+                "VisionOS"
+            ]
+        }
 	]
 }

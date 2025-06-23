@@ -9,8 +9,8 @@ namespace Arcweave {
   class RuntimeErrorException : public std::exception {
     public:
     std::string message;
-    int line = -1;
-    int charPositionInLine = -1;
+    size_t line;
+    size_t charPositionInLine;
     RuntimeErrorException(std::string msg) {
       message = msg;
     };
@@ -20,11 +20,18 @@ namespace Arcweave {
       charPositionInLine = _charPositionInLine;
     };
     char const* what() const noexcept override {
-      if (line > -1) {
-        std::ostringstream oss;
-        oss << "line " << line << ":" << charPositionInLine << " " << message << std::endl;
-        return oss.str().c_str();
-      }
+        if (line > -1) {
+            std::ostringstream oss;
+            oss << "line " << line << ":" << charPositionInLine << " " << message << std::endl;
+            std::string temp_str = oss.str(); // Get the string
+            
+            // Determine the size needed (including null terminator)
+            size_t size = temp_str.length() + 1;
+            // Dynamically allocate memory for the string
+            char* buffer = new char[size];
+            strcpy(buffer, temp_str.c_str());
+            return buffer;
+        }
       return message.c_str();
     }
   };
@@ -32,8 +39,8 @@ namespace Arcweave {
   class ParseErrorException : public std::exception {
     public:
     std::string message;
-    int line = -1;
-    int charPositionInLine = -1;
+    size_t line;
+    size_t charPositionInLine;
     ParseErrorException(std::string msg) {
       message = msg;
     };
@@ -46,7 +53,14 @@ namespace Arcweave {
       if (line > -1) {
         std::ostringstream oss;
         oss << "line " << line << ":" << charPositionInLine << " " << message << std::endl;
-        return oss.str().c_str();
+        std::string temp_str = oss.str(); // Get the string
+
+        // Determine the size needed (including null terminator)
+        size_t size = temp_str.length() + 1;
+        // Dynamically allocate memory for the string
+        char* buffer = new char[size];
+        strcpy(buffer, temp_str.c_str());
+        return buffer;
       }
       return message.c_str();
     }

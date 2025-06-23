@@ -1,11 +1,12 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "..\Public\ArcweaveSubsystem.h"
+#include "../Public/ArcweaveSubsystem.h"
 
 #include "Arcweave.h"
 #include "ArcweaveSettings.h"
 #include "ArcweaveTypes.h"
+#include "Engine/Engine.h"
 #include "HttpModule.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Interfaces/IPluginManager.h"

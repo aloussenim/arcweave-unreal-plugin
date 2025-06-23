@@ -53,9 +53,14 @@ namespace antlrcpp {
   template <typename T>
   std::string toString(const T &o) {
     std::stringstream ss;
-    // typeid gives the mangled class name, but that's all what's possible
-    // in a portable way.
-    ss << typeid(o).name() << "@" << std::hex << reinterpret_cast<uintptr_t>(&o);
+#if defined(__GNUC__) || defined(__clang__)
+    ss << __PRETTY_FUNCTION__;
+#elif defined(_MSC_VER)
+    ss << __FUNCSIG__;
+#else
+    ss << "UnknownType";
+#endif
+
     return ss.str();
   }
 

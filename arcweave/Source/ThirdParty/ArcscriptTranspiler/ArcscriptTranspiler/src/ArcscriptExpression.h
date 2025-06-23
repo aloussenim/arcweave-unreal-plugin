@@ -1,11 +1,14 @@
 #include <iostream>
-#include <any>
 #include <string>
 #include <cstring>
+#include <any>
 
 namespace Arcweave {
 
+using SupportedValueType = std::variant<std::string, bool, int, double>;
+
 class Expression {
+
 private:
   struct NumberValues {
     double value1;
@@ -13,14 +16,14 @@ private:
     bool hasDoubles = false;
   };
 
-  static NumberValues doubleValues(std::any value1, std::any value2) ;
+  static NumberValues doubleValues(SupportedValueType value1, SupportedValueType value2) ;
 
-  static std::string valueToString(std::any value);
-  static bool valueToBool(std::any value);
+  static std::string valueToString(SupportedValueType value);
+  static bool valueToBool(SupportedValueType value);
 public:
-  std::any value;
+  SupportedValueType value;
   Expression() {
-    value = std::any();
+    value = SupportedValueType();
   }
   Expression(std::string _value) {
     value = _value;
@@ -38,12 +41,36 @@ public:
     value = e.value;
   }
 
-  void setValue(std::any _value) {
-    value = _value;
-  }
+    void setValue(std::any _value) {
+        if (_value.has_value()) {
+            if (std::string* pVal = std::any_cast<std::string>(&_value))
+            {
+                value = *pVal;
+            }
+            else if (bool* pVal = std::any_cast<bool>(&_value))
+            {
+                value = *pVal;
+            }
+            else if (int* pVal = std::any_cast<int>(&_value))
+            {
+                value = *pVal;
+            }
+            else if (double* pVal = std::any_cast<double>(&_value)) {
+                value = *pVal;
+            }
+            else {
+                // if RTTI is off
+                    // __PRETTY_FUNCTION__ can give context for debugging
+                    std::cerr << "WARNING: Arcweave::Expression::setValue(std::any) received unsupported value '";
+                value = std::string(); // Set to a default value (e.g., empty string)
+            }
+        } else {
+            value = std::string(); // Default to empty string
+        }
+    }
 
-  const std::type_info& type() {
-    return value.type();
+  void setValue(SupportedValueType _value) {
+    value = _value;
   }
 
   Expression operator+ (const Expression &other);

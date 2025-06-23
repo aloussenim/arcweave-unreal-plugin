@@ -1,0 +1,457 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		84AEEEA82DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEEA32DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.cpp */; };
+		84AEEEA92DD8CF0D00171B0F /* ArcscriptParserVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEEA52DD8CF0D00171B0F /* ArcscriptParserVisitor.cpp */; };
+		84AEEEAA2DD8CF0D00171B0F /* ArcscriptVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEE9C2DD8CF0D00171B0F /* ArcscriptVisitor.cpp */; };
+		84AEEEAB2DD8CF0D00171B0F /* ArcscriptParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEEA12DD8CF0D00171B0F /* ArcscriptParser.cpp */; };
+		84AEEEAC2DD8CF0D00171B0F /* ArcscriptTranspiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEE9A2DD8CF0D00171B0F /* ArcscriptTranspiler.cpp */; };
+		84AEEEAD2DD8CF0D00171B0F /* ArcscriptExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEE912DD8CF0D00171B0F /* ArcscriptExpression.cpp */; };
+		84AEEEAE2DD8CF0D00171B0F /* ArcscriptParserBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEE982DD8CF0D00171B0F /* ArcscriptParserBase.cpp */; };
+		84AEEEAF2DD8CF0D00171B0F /* ArcscriptLexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEE9E2DD8CF0D00171B0F /* ArcscriptLexer.cpp */; };
+		84AEEEB02DD8CF0D00171B0F /* ArcscriptErrorListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEE8F2DD8CF0D00171B0F /* ArcscriptErrorListener.cpp */; };
+		84AEEEB12DD8CF0D00171B0F /* ArcscriptOutputs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEE962DD8CF0D00171B0F /* ArcscriptOutputs.cpp */; };
+		84AEEEB22DD8CF0D00171B0F /* ArcscriptFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEE932DD8CF0D00171B0F /* ArcscriptFunctions.cpp */; };
+		84AEEEB32DD8CF0D00171B0F /* ArcscriptErrorListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE8E2DD8CF0D00171B0F /* ArcscriptErrorListener.h */; };
+		84AEEEB42DD8CF0D00171B0F /* ArcscriptFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE922DD8CF0D00171B0F /* ArcscriptFunctions.h */; };
+		84AEEEB52DD8CF0D00171B0F /* ArcscriptExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE902DD8CF0D00171B0F /* ArcscriptExpression.h */; };
+		84AEEEB62DD8CF0D00171B0F /* ArcscriptHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE942DD8CF0D00171B0F /* ArcscriptHelpers.h */; };
+		84AEEEB72DD8CF0D00171B0F /* ArcscriptOutputs.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE952DD8CF0D00171B0F /* ArcscriptOutputs.h */; };
+		84AEEEB82DD8CF0D00171B0F /* ArcscriptVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE9B2DD8CF0D00171B0F /* ArcscriptVisitor.h */; };
+		84AEEEB92DD8CF0D00171B0F /* ArcscriptParserVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEEA42DD8CF0D00171B0F /* ArcscriptParserVisitor.h */; };
+		84AEEEBA2DD8CF0D00171B0F /* ArcscriptErrorExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE8D2DD8CF0D00171B0F /* ArcscriptErrorExceptions.h */; };
+		84AEEEBB2DD8CF0D00171B0F /* ArcscriptParserBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE972DD8CF0D00171B0F /* ArcscriptParserBase.h */; };
+		84AEEEBC2DD8CF0D00171B0F /* ArcscriptTranspiler.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE992DD8CF0D00171B0F /* ArcscriptTranspiler.h */; };
+		84AEEEBD2DD8CF0D00171B0F /* ArcscriptLexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEE9D2DD8CF0D00171B0F /* ArcscriptLexer.h */; };
+		84AEEEBE2DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEEA22DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.h */; };
+		84AEEEBF2DD8CF0D00171B0F /* ArcscriptParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 84AEEEA02DD8CF0D00171B0F /* ArcscriptParser.h */; };
+		84AEEEC42DD9202500171B0F /* libantlr4-runtime.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AEEEC32DD9202500171B0F /* libantlr4-runtime.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		84AEEE7F2DD8CD8600171B0F /* libArcscriptTranspiler.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libArcscriptTranspiler.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		84AEEE8D2DD8CF0D00171B0F /* ArcscriptErrorExceptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptErrorExceptions.h; path = src/ArcscriptErrorExceptions.h; sourceTree = "<group>"; };
+		84AEEE8E2DD8CF0D00171B0F /* ArcscriptErrorListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptErrorListener.h; path = src/ArcscriptErrorListener.h; sourceTree = "<group>"; };
+		84AEEE8F2DD8CF0D00171B0F /* ArcscriptErrorListener.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ArcscriptErrorListener.cpp; path = src/ArcscriptErrorListener.cpp; sourceTree = "<group>"; };
+		84AEEE902DD8CF0D00171B0F /* ArcscriptExpression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptExpression.h; path = src/ArcscriptExpression.h; sourceTree = "<group>"; };
+		84AEEE912DD8CF0D00171B0F /* ArcscriptExpression.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ArcscriptExpression.cpp; path = src/ArcscriptExpression.cpp; sourceTree = "<group>"; };
+		84AEEE922DD8CF0D00171B0F /* ArcscriptFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptFunctions.h; path = src/ArcscriptFunctions.h; sourceTree = "<group>"; };
+		84AEEE932DD8CF0D00171B0F /* ArcscriptFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ArcscriptFunctions.cpp; path = src/ArcscriptFunctions.cpp; sourceTree = "<group>"; };
+		84AEEE942DD8CF0D00171B0F /* ArcscriptHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptHelpers.h; path = src/ArcscriptHelpers.h; sourceTree = "<group>"; };
+		84AEEE952DD8CF0D00171B0F /* ArcscriptOutputs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptOutputs.h; path = src/ArcscriptOutputs.h; sourceTree = "<group>"; };
+		84AEEE962DD8CF0D00171B0F /* ArcscriptOutputs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ArcscriptOutputs.cpp; path = src/ArcscriptOutputs.cpp; sourceTree = "<group>"; };
+		84AEEE972DD8CF0D00171B0F /* ArcscriptParserBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptParserBase.h; path = src/ArcscriptParserBase.h; sourceTree = "<group>"; };
+		84AEEE982DD8CF0D00171B0F /* ArcscriptParserBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ArcscriptParserBase.cpp; path = src/ArcscriptParserBase.cpp; sourceTree = "<group>"; };
+		84AEEE992DD8CF0D00171B0F /* ArcscriptTranspiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptTranspiler.h; path = src/ArcscriptTranspiler.h; sourceTree = "<group>"; };
+		84AEEE9A2DD8CF0D00171B0F /* ArcscriptTranspiler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ArcscriptTranspiler.cpp; path = src/ArcscriptTranspiler.cpp; sourceTree = "<group>"; };
+		84AEEE9B2DD8CF0D00171B0F /* ArcscriptVisitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptVisitor.h; path = src/ArcscriptVisitor.h; sourceTree = "<group>"; };
+		84AEEE9C2DD8CF0D00171B0F /* ArcscriptVisitor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ArcscriptVisitor.cpp; path = src/ArcscriptVisitor.cpp; sourceTree = "<group>"; };
+		84AEEE9D2DD8CF0D00171B0F /* ArcscriptLexer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcscriptLexer.h; sourceTree = "<group>"; };
+		84AEEE9E2DD8CF0D00171B0F /* ArcscriptLexer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcscriptLexer.cpp; sourceTree = "<group>"; };
+		84AEEEA02DD8CF0D00171B0F /* ArcscriptParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcscriptParser.h; sourceTree = "<group>"; };
+		84AEEEA12DD8CF0D00171B0F /* ArcscriptParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcscriptParser.cpp; sourceTree = "<group>"; };
+		84AEEEA22DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcscriptParserBaseVisitor.h; sourceTree = "<group>"; };
+		84AEEEA32DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcscriptParserBaseVisitor.cpp; sourceTree = "<group>"; };
+		84AEEEA42DD8CF0D00171B0F /* ArcscriptParserVisitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArcscriptParserVisitor.h; sourceTree = "<group>"; };
+		84AEEEA52DD8CF0D00171B0F /* ArcscriptParserVisitor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ArcscriptParserVisitor.cpp; sourceTree = "<group>"; };
+		84AEEEC32DD9202500171B0F /* libantlr4-runtime.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libantlr4-runtime.dylib"; path = "../Mac/Release/libantlr4-runtime.dylib"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		84AEEE7D2DD8CD8600171B0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84AEEEC42DD9202500171B0F /* libantlr4-runtime.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		84AEEE762DD8CD8600171B0F = {
+			isa = PBXGroup;
+			children = (
+				84AEEE8D2DD8CF0D00171B0F /* ArcscriptErrorExceptions.h */,
+				84AEEE8E2DD8CF0D00171B0F /* ArcscriptErrorListener.h */,
+				84AEEE8F2DD8CF0D00171B0F /* ArcscriptErrorListener.cpp */,
+				84AEEE902DD8CF0D00171B0F /* ArcscriptExpression.h */,
+				84AEEE912DD8CF0D00171B0F /* ArcscriptExpression.cpp */,
+				84AEEE922DD8CF0D00171B0F /* ArcscriptFunctions.h */,
+				84AEEE932DD8CF0D00171B0F /* ArcscriptFunctions.cpp */,
+				84AEEE942DD8CF0D00171B0F /* ArcscriptHelpers.h */,
+				84AEEE952DD8CF0D00171B0F /* ArcscriptOutputs.h */,
+				84AEEE962DD8CF0D00171B0F /* ArcscriptOutputs.cpp */,
+				84AEEE972DD8CF0D00171B0F /* ArcscriptParserBase.h */,
+				84AEEE982DD8CF0D00171B0F /* ArcscriptParserBase.cpp */,
+				84AEEE992DD8CF0D00171B0F /* ArcscriptTranspiler.h */,
+				84AEEE9A2DD8CF0D00171B0F /* ArcscriptTranspiler.cpp */,
+				84AEEE9B2DD8CF0D00171B0F /* ArcscriptVisitor.h */,
+				84AEEE9C2DD8CF0D00171B0F /* ArcscriptVisitor.cpp */,
+				84AEEEA72DD8CF0D00171B0F /* Generated */,
+				84AEEEC22DD9202500171B0F /* Frameworks */,
+				84AEEE802DD8CD8600171B0F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		84AEEE802DD8CD8600171B0F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84AEEE7F2DD8CD8600171B0F /* libArcscriptTranspiler.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		84AEEE9F2DD8CF0D00171B0F /* ArcscriptLexer */ = {
+			isa = PBXGroup;
+			children = (
+				84AEEE9D2DD8CF0D00171B0F /* ArcscriptLexer.h */,
+				84AEEE9E2DD8CF0D00171B0F /* ArcscriptLexer.cpp */,
+			);
+			path = ArcscriptLexer;
+			sourceTree = "<group>";
+		};
+		84AEEEA62DD8CF0D00171B0F /* ArcscriptParser */ = {
+			isa = PBXGroup;
+			children = (
+				84AEEEA02DD8CF0D00171B0F /* ArcscriptParser.h */,
+				84AEEEA12DD8CF0D00171B0F /* ArcscriptParser.cpp */,
+				84AEEEA22DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.h */,
+				84AEEEA32DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.cpp */,
+				84AEEEA42DD8CF0D00171B0F /* ArcscriptParserVisitor.h */,
+				84AEEEA52DD8CF0D00171B0F /* ArcscriptParserVisitor.cpp */,
+			);
+			path = ArcscriptParser;
+			sourceTree = "<group>";
+		};
+		84AEEEA72DD8CF0D00171B0F /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				84AEEE9F2DD8CF0D00171B0F /* ArcscriptLexer */,
+				84AEEEA62DD8CF0D00171B0F /* ArcscriptParser */,
+			);
+			name = Generated;
+			path = src/Generated;
+			sourceTree = "<group>";
+		};
+		84AEEEC22DD9202500171B0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84AEEEC32DD9202500171B0F /* libantlr4-runtime.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		84AEEE7B2DD8CD8600171B0F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84AEEEB32DD8CF0D00171B0F /* ArcscriptErrorListener.h in Headers */,
+				84AEEEB42DD8CF0D00171B0F /* ArcscriptFunctions.h in Headers */,
+				84AEEEB52DD8CF0D00171B0F /* ArcscriptExpression.h in Headers */,
+				84AEEEB62DD8CF0D00171B0F /* ArcscriptHelpers.h in Headers */,
+				84AEEEB72DD8CF0D00171B0F /* ArcscriptOutputs.h in Headers */,
+				84AEEEB82DD8CF0D00171B0F /* ArcscriptVisitor.h in Headers */,
+				84AEEEB92DD8CF0D00171B0F /* ArcscriptParserVisitor.h in Headers */,
+				84AEEEBA2DD8CF0D00171B0F /* ArcscriptErrorExceptions.h in Headers */,
+				84AEEEBB2DD8CF0D00171B0F /* ArcscriptParserBase.h in Headers */,
+				84AEEEBC2DD8CF0D00171B0F /* ArcscriptTranspiler.h in Headers */,
+				84AEEEBD2DD8CF0D00171B0F /* ArcscriptLexer.h in Headers */,
+				84AEEEBE2DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.h in Headers */,
+				84AEEEBF2DD8CF0D00171B0F /* ArcscriptParser.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		84AEEE7E2DD8CD8600171B0F /* ArcscriptTranspiler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84AEEE8A2DD8CD8600171B0F /* Build configuration list for PBXNativeTarget "ArcscriptTranspiler" */;
+			buildPhases = (
+				84AEEE7B2DD8CD8600171B0F /* Headers */,
+				84AEEE7C2DD8CD8600171B0F /* Sources */,
+				84AEEE7D2DD8CD8600171B0F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ArcscriptTranspiler;
+			packageProductDependencies = (
+			);
+			productName = ArcscriptTranspiler;
+			productReference = 84AEEE7F2DD8CD8600171B0F /* libArcscriptTranspiler.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		84AEEE772DD8CD8600171B0F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					84AEEE7E2DD8CD8600171B0F = {
+						CreatedOnToolsVersion = 16.2;
+					};
+				};
+			};
+			buildConfigurationList = 84AEEE7A2DD8CD8600171B0F /* Build configuration list for PBXProject "ArcscriptTranspiler" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 84AEEE762DD8CD8600171B0F;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 84AEEE802DD8CD8600171B0F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				84AEEE7E2DD8CD8600171B0F /* ArcscriptTranspiler */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		84AEEE7C2DD8CD8600171B0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84AEEEA82DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.cpp in Sources */,
+				84AEEEA92DD8CF0D00171B0F /* ArcscriptParserVisitor.cpp in Sources */,
+				84AEEEAA2DD8CF0D00171B0F /* ArcscriptVisitor.cpp in Sources */,
+				84AEEEAB2DD8CF0D00171B0F /* ArcscriptParser.cpp in Sources */,
+				84AEEEAC2DD8CF0D00171B0F /* ArcscriptTranspiler.cpp in Sources */,
+				84AEEEAD2DD8CF0D00171B0F /* ArcscriptExpression.cpp in Sources */,
+				84AEEEAE2DD8CF0D00171B0F /* ArcscriptParserBase.cpp in Sources */,
+				84AEEEAF2DD8CF0D00171B0F /* ArcscriptLexer.cpp in Sources */,
+				84AEEEB02DD8CF0D00171B0F /* ArcscriptErrorListener.cpp in Sources */,
+				84AEEEB12DD8CF0D00171B0F /* ArcscriptOutputs.cpp in Sources */,
+				84AEEEB22DD8CF0D00171B0F /* ArcscriptFunctions.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		84AEEE882DD8CD8600171B0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		84AEEE892DD8CD8600171B0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		84AEEE8B2DD8CD8600171B0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DSTROOT = "$(SRCROOT)/../Mac";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"ARCSCRIPTTRANSPILER_EXPORTS=1",
+					"DEBUG=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = (
+					./src,
+					./src/Generated/ArcscriptLexer,
+					./src/Generated/ArcscriptParser/,
+					"../antlr4-runtime/src/**",
+				);
+				INSTALL_PATH = "$(SRCROOT)../Mac/Release";
+				LIBRARY_SEARCH_PATHS = "../Mac/Release/**";
+				OBJROOT = "$(SYMROOT)/$(PROJECT_NAME).build/Intermediates.noindex";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				SYMROOT = ../Mac;
+			};
+			name = Debug;
+		};
+		84AEEE8C2DD8CD8600171B0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DSTROOT = "$(SRCROOT)/../Mac";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "ARCSCRIPTTRANSPILER_EXPORTS=1";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = (
+					./src,
+					./src/Generated/ArcscriptLexer,
+					./src/Generated/ArcscriptParser/,
+					"../antlr4-runtime/src/**",
+				);
+				INSTALL_PATH = "$(SRCROOT)../Mac/Release";
+				LIBRARY_SEARCH_PATHS = "../Mac/Release/**";
+				OBJROOT = "$(SYMROOT)/$(PROJECT_NAME).build/Intermediates.noindex";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				SYMROOT = ../Mac;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		84AEEE7A2DD8CD8600171B0F /* Build configuration list for PBXProject "ArcscriptTranspiler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84AEEE882DD8CD8600171B0F /* Debug */,
+				84AEEE892DD8CD8600171B0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84AEEE8A2DD8CD8600171B0F /* Build configuration list for PBXNativeTarget "ArcscriptTranspiler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84AEEE8B2DD8CD8600171B0F /* Debug */,
+				84AEEE8C2DD8CD8600171B0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 84AEEE772DD8CD8600171B0F /* Project object */;
+}

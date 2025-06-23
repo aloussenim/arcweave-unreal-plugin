@@ -1,18 +1,26 @@
+#pragma once
+#include "antlr4-runtime.h"
+#include "ArcscriptLexer.h"
+#include "ArcscriptParser.h"
+#include "ArcscriptVisitor.h"
 #if defined _WIN64
-	#pragma once
-
-	#include "antlr4-runtime.h"
-	#include "ArcscriptLexer.h"
-	#include "ArcscriptParser.h"
-	#include "ArcscriptVisitor.h"
 	#include <windows.h>
-	#ifdef ARCSCRIPTTRANSPILER_EXPORTS
-		#define ARCSCRIPTTRANSPILER_API __declspec(dllexport)
-	#else
-		#define ARCSCRIPTTRANSPILER_API __declspec(dllimport)
-	#endif
+#endif
+
+#ifdef ARCSCRIPTTRANSPILER_EXPORTS
+    #if defined _WIN64
+        #define ARCSCRIPTTRANSPILER_API __declspec(dllexport)
+    #elif defined PLATFORM_MAC || defined __APPLE__
+        #define ARCSCRIPTTRANSPILER_API __attribute__((visibility("default")))
+    #else
+        #define ARCSCRIPTTRANSPILER_API
+    #endif
 #else
-	#define HELLOWORLD_IMPORT
+    #if defined _WIN64 // On Windows, use dllimport
+        #define ARCSCRIPTTRANSPILER_API __declspec(dllimport)
+    #else
+        #define ARCSCRIPTTRANSPILER_API
+    #endif
 #endif
 
 namespace Arcweave
