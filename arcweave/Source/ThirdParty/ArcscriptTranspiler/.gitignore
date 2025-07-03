@@ -16,7 +16,7 @@ bld/
 
 packages
 *.user
-
+antlr4-runtime/build
 antlr4-runtime/CMakeCache.txt
 antlr4-runtime/CMakeFiles/
 antlr4-runtime/_deps/
@@ -32,3 +32,4 @@ antlr4-runtime/libantlr4-runtime.dylib
 antlr4-runtime/libantlr4-runtime.4.12.0.dylib
 antlr4-runtime/libantlr4-runtime.4.13.0.dylib
 antlr4-runtime/x64/
+ArcscriptTranspiler/build
