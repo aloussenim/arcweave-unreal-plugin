@@ -1,0 +1,15 @@
+To build the antlr library on mac:
+
+```
+# dynamic library
+xcodebuild -project antlrcpp.xcodeproj -target antlr4 -configuration Release ARCHS="arm64 x86_64"
+
+#static library
+xcodebuild -project antlrcpp.xcodeproj -target antlr4_static -configuration Release ARCHS="arm64 x86_64"
+```
+
+To build the Arcscript transpiler:
+
+```
+xcodebuild -scheme ArcscriptTranspiler -project ArcscriptTranspiler.xcodeproj -configuration Release ARCHS="arm64 x86_64"
+```
