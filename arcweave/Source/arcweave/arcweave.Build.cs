@@ -21,8 +21,8 @@ public class arcweave : ModuleRules
             string MacLibPath = Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "Mac", "Release");
 
             PublicAdditionalLibraries.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
-			RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libArcscriptTranspiler.dylib");
-            PublicDelayLoadDLLs.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libArcscriptTranspiler.dylib");
+			RuntimeDependencies.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
+            PublicDelayLoadDLLs.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
 		}
 		PublicIncludePaths.AddRange(
 			new string[] {
