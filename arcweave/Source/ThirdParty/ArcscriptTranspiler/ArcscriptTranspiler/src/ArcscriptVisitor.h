@@ -8,10 +8,10 @@ using namespace Arcweave;
 
 class ArcscriptVisitor : public ArcscriptParserBaseVisitor {
 public:
-    struct ConditionalSection {
-        bool clause;
-        std::any script;
-    };
+  struct ConditionalSection {
+    bool clause;
+    std::any script;
+  };
 
   ArcscriptState *state;
   ArcscriptFunctions *functions;
