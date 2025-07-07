@@ -1,6 +1,8 @@
 // ArcscriptTranspilerTest.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <filesystem>
 #include <fstream>
@@ -14,6 +16,14 @@ using json = nlohmann::json;
 
 using namespace Arcweave;
 
+char* getStrCopy(const std::string& source)
+{
+    const size_t bufferSize = source.size() + 1;
+    std::unique_ptr<char[]> myBuffer = std::make_unique<char[]>(bufferSize);
+    std::memcpy(myBuffer.get(), source.c_str(), bufferSize);
+    return myBuffer.release();
+}
+
 UVariable* getInitialVars(json initialVarsJson) {
     UVariable* initVars = new UVariable[initialVarsJson.size()];
     int i = 0;
@@ -22,8 +32,8 @@ UVariable* getInitialVars(json initialVarsJson) {
         std::string name = it.value()["name"].template get<std::string>();
         std::string type = it.value()["type"].template get<std::string>();
 
-        initVars[i].id = strdup(id.c_str());
-        initVars[i].name = strdup(name.c_str());
+        initVars[i].id = getStrCopy(id);
+        initVars[i].name = getStrCopy(name);
         initVars[i].type = VariableType::AW_ANY;
         if (type == "string") {
             initVars[i].type = VariableType::AW_STRING;
@@ -39,7 +49,7 @@ UVariable* getInitialVars(json initialVarsJson) {
         }
 
         if (initVars[i].type == VariableType::AW_STRING) {
-            initVars[i].string_val = strdup(it.value()["value"].template get<std::string>().c_str());
+            initVars[i].string_val = getStrCopy(it.value()["value"].template get<std::string>().c_str());
         }
         else if (initVars[i].type == VariableType::AW_INTEGER) {
             initVars[i].int_val = it.value()["value"].template get<int>();
@@ -61,7 +71,7 @@ UVisit* getVisits(json initVisits) {
     UVisit* visits = new UVisit[initVisits.size()];
     int i = 0; 
     for (json::iterator it = initVisits.begin(); it != initVisits.end(); ++it) {
-        visits[i].elId = strdup(it.key().c_str());
+        visits[i].elId = getStrCopy(it.key().c_str());
         visits[i].visits = it.value().template get<int>();
         i += 1;
     }
@@ -76,15 +86,15 @@ int testFile(std::filesystem::path path) {
     UVariable* initVars = getInitialVars(initVarsJson);
     size_t initVarLen = initVarsJson.size();
     for (json::iterator it = data["cases"].begin(); it != data["cases"].end(); ++it) {
-        const char* code = strdup((*it)["code"].template get<std::string>().c_str());
+        const char* code = getStrCopy((*it)["code"].template get<std::string>().c_str());
         UVisit* visits = nullptr;
         size_t visitsLen = 0;
         const char* currentElement = nullptr;
         if ((*it).contains("elementId")) {
-            currentElement = strdup((*it)["elementId"].template get<std::string>().c_str());
+            currentElement = getStrCopy((*it)["elementId"].template get<std::string>().c_str());
         }
         else {
-            currentElement = strdup("TestElement");
+            currentElement = getStrCopy("TestElement");
         }
         if ((*it).contains("visits")) {
             visits = getVisits((*it)["visits"]);
@@ -130,8 +140,9 @@ int testFile(std::filesystem::path path) {
 
 int main()
 {
-    const std::filesystem::path path{ "D:\\arcweave\\arcscript-interpreters\\CSharp\\__tests__\\stringConcat.json" };
-    testFile(path);
+    const std::filesystem::path relativePath{ "..\\..\\..\\arcweave\\test\\valid.json" };
+
+    testFile(std::filesystem::absolute(relativePath));
 
     system("pause");
 }

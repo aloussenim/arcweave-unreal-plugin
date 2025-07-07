@@ -22,19 +22,19 @@ public:
     
   }
 
-  std::any Call(std::string functionName, std::vector<std::any> args);
+  ArcscriptValue Call(std::string functionName, const std::vector<std::any>& _args);
 
-  std::any Abs(std::vector<std::any> args);
-  std::any Max(std::vector<std::any> args);
-  std::any Min(std::vector<std::any> args);
-  std::any Random(std::vector<std::any> args);
-  std::any Reset(std::vector<std::any> args);
-  std::any ResetAll(std::vector<std::any> args);
-  std::any Roll(std::vector<std::any> args);
-  std::any Round(std::vector<std::any> args);
-  std::any Show(std::vector<std::any> args);
-  std::any Sqr(std::vector<std::any> args);
-  std::any Sqrt(std::vector<std::any> args);
-  std::any Visits(std::vector<std::any> args);
+  ArcscriptValue Abs(const std::vector<ArcscriptValue> &args);
+  ArcscriptValue Max(const std::vector<ArcscriptValue> &args);
+  ArcscriptValue Min(const std::vector<ArcscriptValue> &args);
+  ArcscriptValue Random(const std::vector<ArcscriptValue> &args);
+  void Reset(const std::vector<ArcscriptValue> &args);
+  void ResetAll(const std::vector<ArcscriptValue> &args);
+  ArcscriptValue Roll(const std::vector<ArcscriptValue> &args);
+  ArcscriptValue Round(const std::vector<ArcscriptValue> &args);
+  ArcscriptValue Show(const std::vector<ArcscriptValue> &args);
+  ArcscriptValue Sqr(const std::vector<ArcscriptValue> &args);
+  ArcscriptValue Sqrt(const std::vector<ArcscriptValue> &args);
+  ArcscriptValue Visits(const std::vector<ArcscriptValue> &args);
 };
 }

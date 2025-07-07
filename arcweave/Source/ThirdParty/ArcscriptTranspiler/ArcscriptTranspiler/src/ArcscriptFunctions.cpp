@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <algorithm>
+#include <variant>
+
+#include "ArcscriptExpression.h"
+#include "ArcscriptHelpers.h"
 
 namespace Arcweave {
     std::map<std::string, ArcscriptFunctions::FunctionInfo> ArcscriptFunctions::functions = {
@@ -20,17 +24,23 @@ namespace Arcweave {
       { "visits", { 0, 1 } },
     };
 
-    std::any ArcscriptFunctions::Call(std::string functionName, std::vector<std::any> _args) {
-        std::vector<std::any> args;
-        for (std::any arg : _args) {
-            if (arg.type() == typeid(Expression)) {
-                args.push_back(std::any_cast<Expression>(arg).value);
+    ArcscriptValue ArcscriptFunctions::Call(std::string functionName, const std::vector<std::any> &_args) {
+        std::vector<ArcscriptValue> args;
+        args.reserve(_args.size());
+
+        for (const auto& arg : _args) {
+            auto arcscriptArg = anyToArcscriptValue(arg);
+            // Use the copy-based helper to safely unwrap Expressions
+            if (auto optionalExp = getArcscriptValue<Expression>(arcscriptArg)) {
+                args.push_back(optionalExp->getValue());
             }
             else {
-                args.push_back(arg);
+                args.push_back(arcscriptArg);
             }
         }
-        std::any result;
+
+        // The rest of the function remains the same, dispatching to the correct method.
+        ArcscriptValue result;
         if (functionName == "sqrt") {
             result = this->Sqrt(args);
         }
@@ -50,10 +60,10 @@ namespace Arcweave {
             result = this->Show(args);
         }
         else if (functionName == "reset") {
-            result = this->Reset(args);
+            this->Reset(args);
         }
         else if (functionName == "resetAll") {
-            result = this->ResetAll(args);
+            this->ResetAll(args);
         }
         else if (functionName == "round") {
             result = this->Round(args);
@@ -70,42 +80,57 @@ namespace Arcweave {
         return result;
     }
 
-    std::any ArcscriptFunctions::Sqrt(std::vector<std::any> args) {
-
-        if (args[0].type() == typeid(int)) {
-            return sqrt(std::any_cast<int>(args[0]));
+    ArcscriptValue ArcscriptFunctions::Sqrt(const std::vector<ArcscriptValue>& args) {
+        if (auto p_int = getArcscriptValue<int>(args[0])) {
+            return sqrt(static_cast<double>(*p_int));
         }
-        return sqrt(std::any_cast<double>(args[0]));
+        if (auto p_double = getArcscriptValue<double>(args[0])) {
+            return sqrt(*p_double);
+        }
+        return {}; // Return default on error
     }
 
-    std::any ArcscriptFunctions::Sqr(std::vector<std::any> args) {
-        if (args[0].type() == typeid(int)) {
-            int n = std::any_cast<int>(args[0]);
-            return n * n;
+    ArcscriptValue ArcscriptFunctions::Sqr(const std::vector<ArcscriptValue>& args) {
+        if (auto p_int = getArcscriptValue<int>(args[0])) {
+            return (*p_int) * (*p_int);
         }
-        double n = std::any_cast<double>(args[0]);
-        return n * n;
+        if (auto p_double = getArcscriptValue<double>(args[0])) {
+            return (*p_double) * (*p_double);
+        }
+        return {}; // Return default on error
     }
 
-    std::any ArcscriptFunctions::Abs(std::vector<std::any> args) {
-        if (args[0].type() == typeid(int)) {
-            return abs(std::any_cast<int>(args[0]));
+    ArcscriptValue ArcscriptFunctions::Abs(const std::vector<ArcscriptValue>& args) {
+        if (auto p_int = getArcscriptValue<int>(args[0])) {
+            return abs(*p_int);
         }
-        double n = std::any_cast<double>(args[0]);
-        return abs(n);
+        if (auto p_double = getArcscriptValue<double>(args[0])) {
+            return abs(*p_double);
+        }
+        return {}; // Return default on error
     }
 
-    std::any ArcscriptFunctions::Random(std::vector<std::any> args) {
+    ArcscriptValue ArcscriptFunctions::Random(const std::vector<ArcscriptValue>& args) {
         srand(time(NULL));
         return ((double)rand() / (RAND_MAX));
     }
 
-    std::any ArcscriptFunctions::Roll(std::vector<std::any> args) {
-        int maxRoll = std::any_cast<int>(args[0]);
+    ArcscriptValue ArcscriptFunctions::Roll(const std::vector<ArcscriptValue>& args) {
+        int maxRoll = 0;
         int numRolls = 1;
-        if (args.size() == 2) {
-            numRolls = std::any_cast<int>(args[1]);
+
+        if (auto p_max = getArcscriptValue<int>(args[0])) {
+            maxRoll = *p_max;
         }
+        else { return {}; } // Invalid first argument
+
+        if (args.size() == 2) {
+            if (auto p_rolls = getArcscriptValue<int>(args[1])) {
+                numRolls = *p_rolls;
+            }
+            else { return {}; } // Invalid second argument
+        }
+
         int sum = 0;
         for (int i = 0; i < numRolls; i++) {
             int oneRoll = rand() % maxRoll + 1;
@@ -114,93 +139,98 @@ namespace Arcweave {
         return sum;
     }
 
-    std::any ArcscriptFunctions::Show(std::vector<std::any> args) {
+    ArcscriptValue ArcscriptFunctions::Show(const std::vector<ArcscriptValue>& args) {
         std::string result;
-        for (int i = 0; i < args.size(); i++) {
-            std::any arg = args[i];
-            if (arg.type() == typeid(int)) {
-                result += std::to_string(std::any_cast<int>(arg));
-            }
-            else if (arg.type() == typeid(double)) {
-                result += std::to_string(std::any_cast<double>(arg));
-            }
-            else if (arg.type() == typeid(bool)) {
-                result += std::to_string(std::any_cast<bool>(arg));
-            }
-            else if (arg.type() == typeid(std::string)) {
-                result += std::any_cast<std::string>(arg);
-            }
+        for (const auto& arg : args) {
+            // std::visit is the cleanest way to handle multiple primitive types
+            std::visit([&result](auto&& val) {
+                using T = std::decay_t<decltype(val)>;
+                if constexpr (std::is_same_v<T, std::string>) {
+                    result += val;
+                }
+                else if constexpr (std::is_same_v<T, bool>) {
+                    result += (val ? "true" : "false");
+                }
+                else if constexpr (std::is_same_v<T, int> || std::is_same_v<T, double>) {
+                    result += std::to_string(val);
+                }
+                // Other complex types will be ignored, matching original logic
+                }, arg);
         }
         _state->outputs.AddScriptOutput(result);
-        return std::any();
+        return {};
     }
 
-    std::any ArcscriptFunctions::Round(std::vector<std::any> args) {
-        if (args[0].type() == typeid(int)) {
-            return round(std::any_cast<int>(args[0]));
+    ArcscriptValue ArcscriptFunctions::Round(const std::vector<ArcscriptValue>& args) {
+        if (auto p_int = getArcscriptValue<int>(args[0])) {
+            return round(static_cast<double>(*p_int));
         }
-        double n = std::any_cast<double>(args[0]);
-        return round(n);
+        if (auto p_double = getArcscriptValue<double>(args[0])) {
+            return round(*p_double);
+        }
+        return {}; // Return default on error
     }
 
-    std::any ArcscriptFunctions::Min(std::vector<std::any> args) {
+    ArcscriptValue ArcscriptFunctions::Min(const std::vector<ArcscriptValue>& args) {
         std::vector<double> casted;
-        for (std::any arg : args) {
-            double val;
-            if (arg.type() == typeid(int)) {
-                val = std::any_cast<int>(arg);
+        for (const auto& arg : args) {
+            if (auto p_int = getArcscriptValue<int>(arg)) {
+                casted.push_back(*p_int);
             }
-            else {
-                val = std::any_cast<double>(arg);
+            else if (auto p_double = getArcscriptValue<double>(arg)) {
+                casted.push_back(*p_double);
             }
-            casted.push_back(val);
         }
+        if (casted.empty()) return {};
         return *min_element(casted.begin(), casted.end());
     }
 
-    std::any ArcscriptFunctions::Max(std::vector<std::any> args) {
+    ArcscriptValue ArcscriptFunctions::Max(const std::vector<ArcscriptValue>& args) {
         std::vector<double> casted;
-        for (std::any arg : args) {
-            double val;
-            if (arg.type() == typeid(int)) {
-                val = std::any_cast<int>(arg);
+        for (const auto& arg : args) {
+            if (auto p_int = getArcscriptValue<int>(arg)) {
+                casted.push_back(*p_int);
             }
-            else {
-                val = std::any_cast<double>(arg);
+            else if (auto p_double = getArcscriptValue<double>(arg)) {
+                casted.push_back(*p_double);
             }
-            casted.push_back(val);
         }
+        if (casted.empty()) return {};
         return *max_element(casted.begin(), casted.end());
     }
 
-    std::any ArcscriptFunctions::Reset(std::vector<std::any> args) {
+    void ArcscriptFunctions::Reset(const std::vector<ArcscriptValue>& args) {
         std::vector<Variable> variables;
-        for (std::any arg : args) {
-            variables.push_back(std::any_cast<Variable>(arg));
-        }
-        _state->resetVars(variables);
-        return std::any();
-    }
-
-    std::any ArcscriptFunctions::ResetAll(std::vector<std::any> args) {
-        std::vector<Variable> except;
-        for (std::any arg : args) {
-            except.push_back(std::any_cast<Variable>(arg));
-        }
-        _state->resetAllVars(except);
-        return std::any();
-    }
-
-    std::any ArcscriptFunctions::Visits(std::vector<std::any> args) {
-        std::string nodeId = _state->currentElement;
-        if (args.size() > 0) {
-            Mention mention = std::any_cast<Mention>(args[0]);
-
-            if (mention.attrs.count("data-id")) {
-                nodeId = mention.attrs["data-id"];
+        for (const auto& arg : args) {
+            // Use the copy-based helper to safely get a Variable object
+            if (auto var_opt = getArcscriptValue<Variable>(arg)) {
+                variables.push_back(*var_opt);
             }
         }
+        _state->resetVars(variables);
+    }
 
+    void ArcscriptFunctions::ResetAll(const std::vector<ArcscriptValue>& args) {
+        std::vector<Variable> except;
+        for (const auto& arg : args) {
+            // Use the copy-based helper to safely get a Variable object
+            if (auto var_opt = getArcscriptValue<Variable>(arg)) {
+                except.push_back(*var_opt);
+            }
+        }
+        _state->resetAllVars(except);
+    }
+
+    ArcscriptValue ArcscriptFunctions::Visits(const std::vector<ArcscriptValue>& args) {
+        std::string nodeId = _state->currentElement;
+        if (!args.empty()) {
+            // Use the pointer-based helper to safely check for a Mention
+            if (auto p_mention = getArcscriptValue<Mention>(args[0])) {
+                if (p_mention->attrs.count("data-id")) {
+                    nodeId = p_mention->attrs.at("data-id");
+                }
+            }
+        }
         return _state->visits[nodeId];
     }
 }

@@ -9,29 +9,25 @@ namespace Arcweave {
   class RuntimeErrorException : public std::exception {
     public:
     std::string message;
-    size_t line;
-    size_t charPositionInLine;
+    int line = -1;
+    size_t charPositionInLine = 0;
     RuntimeErrorException(std::string msg) {
       message = msg;
     };
-    RuntimeErrorException(std::string msg, size_t _line, size_t _charPositionInLine) {
-      message = msg;
+    RuntimeErrorException(std::string msg, int _line, size_t _charPositionInLine) {
       line = _line;
       charPositionInLine = _charPositionInLine;
+      
+      if (line > -1) {
+          std::ostringstream oss;
+          oss << "line " << line << ":" << charPositionInLine << " " << message << std::endl;
+          message = oss.str(); // Get the string
+      }
+      else {
+          message = msg;
+      }
     };
     char const* what() const noexcept override {
-        if (line > -1) {
-            std::ostringstream oss;
-            oss << "line " << line << ":" << charPositionInLine << " " << message << std::endl;
-            std::string temp_str = oss.str(); // Get the string
-            
-            // Determine the size needed (including null terminator)
-            size_t size = temp_str.length() + 1;
-            // Dynamically allocate memory for the string
-            char* buffer = new char[size];
-            strcpy(buffer, temp_str.c_str());
-            return buffer;
-        }
       return message.c_str();
     }
   };
@@ -39,29 +35,24 @@ namespace Arcweave {
   class ParseErrorException : public std::exception {
     public:
     std::string message;
-    size_t line;
-    size_t charPositionInLine;
+    int line = -1;
+    size_t charPositionInLine = 0;
     ParseErrorException(std::string msg) {
       message = msg;
     };
-    ParseErrorException(std::string msg, size_t _line, size_t _charPositionInLine) {
-      message = msg;
+    ParseErrorException(std::string msg, int _line, size_t _charPositionInLine) {
       line = _line;
+      if (line > -1) {
+          std::ostringstream oss;
+          oss << "line " << line << ":" << charPositionInLine << " " << message << std::endl;
+          message = oss.str(); // Get the string
+      }
+      else {
+          message = msg;
+      }
       charPositionInLine = _charPositionInLine;
     };
     char const* what() const noexcept override {
-      if (line > -1) {
-        std::ostringstream oss;
-        oss << "line " << line << ":" << charPositionInLine << " " << message << std::endl;
-        std::string temp_str = oss.str(); // Get the string
-
-        // Determine the size needed (including null terminator)
-        size_t size = temp_str.length() + 1;
-        // Dynamically allocate memory for the string
-        char* buffer = new char[size];
-        strcpy(buffer, temp_str.c_str());
-        return buffer;
-      }
       return message.c_str();
     }
   };

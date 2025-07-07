@@ -27,6 +27,7 @@
     <ClCompile Include="src\ArcscriptErrorListener.cpp" />
     <ClCompile Include="src\ArcscriptExpression.cpp" />
     <ClCompile Include="src\ArcscriptFunctions.cpp" />
+    <ClCompile Include="src\ArcscriptHelpers.cpp" />
     <ClCompile Include="src\ArcscriptOutputs.cpp" />
     <ClCompile Include="src\ArcscriptParserBase.cpp" />
     <ClCompile Include="src\ArcscriptTranspiler.cpp" />

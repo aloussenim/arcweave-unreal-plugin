@@ -10,7 +10,6 @@
 
 namespace Arcweave {
 
-
 class  ArcscriptParser : public ArcscriptParserBase {
 public:
   enum {

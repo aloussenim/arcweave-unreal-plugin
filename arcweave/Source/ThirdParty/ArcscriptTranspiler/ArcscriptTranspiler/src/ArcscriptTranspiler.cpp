@@ -2,6 +2,8 @@
 #pragma once
 #include "ArcscriptTranspiler.h"
 #include "ArcscriptErrorListener.h"
+#include "ArcscriptExpression.h"
+#include "ArcscriptHelpers.h"
 #include <sstream>
 #include <iterator>
 
@@ -9,7 +11,6 @@
 #include <windows.h>
 #endif
 
-#define _CRT_SECURE_NO_WARNINGS
 
 using namespace Arcweave;
 using namespace antlr4;
@@ -99,7 +100,7 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput* runScriptExport(const char* code, con
     transpilerOutput = transpiler.runScript(sCode);
 
     UTranspilerOutput* uTranspilerOutput = new UTranspilerOutput();
-    uTranspilerOutput->output = strdup(transpilerOutput.output.c_str());
+    uTranspilerOutput->output = copyAndAssignCharPointer(transpilerOutput.output.c_str());
     uTranspilerOutput->type = transpilerOutput.type;
     
     if (transpilerOutput.type == InputType::CONDITION) {
@@ -112,24 +113,24 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput* runScriptExport(const char* code, con
     size_t i = 0;
     for (auto change : transpilerOutput.changes) {
         UVariableChange uChange;
-        uChange.varId = strdup(change.first.c_str());
+        uChange.varId = copyAndAssignCharPointer(change.first.c_str());
 
-        if (change.second.type() == typeid(std::string)) {
+        if (std::holds_alternative<std::string>(change.second)) {
             uChange.type = VariableType::AW_STRING;
-            std::string string_result = std::any_cast<std::string>(change.second);
-            uChange.string_result = strdup(string_result.c_str());
+            std::string string_result = std::get<std::string>(change.second);
+            uChange.string_result = copyAndAssignCharPointer(string_result.c_str());
         }
-        else if (change.second.type() == typeid(int)) {
+        else if (std::holds_alternative<int>(change.second)) {
             uChange.type = VariableType::AW_INTEGER;
-            uChange.int_result = std::any_cast<int>(change.second);
+            uChange.int_result = std::get<int>(change.second);
         }
-        else if (change.second.type() == typeid(double)) {
+        else if (std::holds_alternative<double>(change.second)) {
             uChange.type = VariableType::AW_DOUBLE;
-            uChange.double_result = std::any_cast<double>(change.second);
+            uChange.double_result = std::get<double>(change.second);
         }
-        else if (change.second.type() == typeid(bool)) {
+        else if (std::holds_alternative<bool>(change.second)) {
             uChange.type = VariableType::AW_BOOLEAN;
-            uChange.bool_result = std::any_cast<bool>(change.second);
+            uChange.bool_result = std::get<bool>(change.second);
         }
         variableChanges[i] = uChange;
         i++;

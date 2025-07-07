@@ -1,9 +1,11 @@
 #include "ArcscriptExpression.h"
+#include "ArcscriptHelpers.h"
 #include <sstream>
+#include <variant>
 
 namespace Arcweave
 {
-    std::string Expression::valueToString(SupportedValueType value)
+    std::string Expression::valueToString(ArcscriptBasicValue value)
     {
         return std::visit([](auto &&arg) -> std::string
                           {
@@ -26,14 +28,14 @@ namespace Arcweave
             ss << arg;
             return ss.str();
         }
-        else 
+        else
         {
-            // Handle types not covered by above, if your variant can contain them
+            // Any other type are not supposed to go in Expressions.
             throw std::runtime_error("Unhandled type in Expression::valueToString");
         } }, value);
     }
 
-    Expression::NumberValues Expression::doubleValues(SupportedValueType value1, SupportedValueType value2)
+    Expression::NumberValues Expression::doubleValues(ArcscriptBasicValue value1, ArcscriptBasicValue value2)
     {
         Expression::NumberValues returnVal;
         returnVal.hasDoubles = false;
@@ -55,7 +57,7 @@ namespace Arcweave
                            returnVal.value1 = arg ? 1.0 : 0.0;
                        }
                        // Add more 'else if constexpr' for other types in your variant
-                       // Make sure all types in SupportedValueType are handled here
+                       // Make sure all types in ArcscriptBasicValue are handled here
                    },
                    value1);
 
@@ -82,7 +84,7 @@ namespace Arcweave
         return returnVal;
     }
 
-    bool Expression::valueToBool(SupportedValueType value)
+    bool Expression::valueToBool(ArcscriptBasicValue value)
     {
         return std::visit([](auto &&arg) -> bool
                           {
@@ -157,7 +159,7 @@ namespace Arcweave
 
     Expression Expression::operator*(const int other)
     {
-        NumberValues values = doubleValues(value, other); // Implicit conversion of int to SupportedValueType for doubleValues
+        NumberValues values = doubleValues(value, other); // Implicit conversion of int to ArcscriptBasicValue for doubleValues
         if (!values.hasDoubles)
         {
             return Expression(static_cast<int>(values.value1 * values.value2));

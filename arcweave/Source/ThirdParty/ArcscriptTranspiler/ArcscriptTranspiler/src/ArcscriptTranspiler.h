@@ -50,7 +50,7 @@ namespace Arcweave
   */
   struct TranspilerOutput {
 	std::string output;
-	std::map<std::string, std::any> changes;
+	std::map<std::string, ArcscriptValue> changes;
 	std::any result;
 	InputType type;
   };
