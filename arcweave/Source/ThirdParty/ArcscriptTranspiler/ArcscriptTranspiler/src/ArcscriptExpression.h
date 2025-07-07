@@ -40,7 +40,7 @@ public:
   Expression(double _value) {
     value = _value;
   }
-  Expression(const Expression& e) {
+  Expression(const Expression &e) {
     value = e.value;
   }
 
@@ -91,36 +91,36 @@ public:
       }, value);
   }
 
-  Expression operator+ (const Expression& other);
-  Expression operator- (const Expression& other);
-  Expression operator* (const Expression& other);
+  Expression operator+ (const Expression &other);
+  Expression operator- (const Expression &other);
+  Expression operator* (const Expression &other);
   Expression operator* (const int other);
-  Expression operator/ (const Expression& other);
-  Expression operator+= (const Expression& other);
-  Expression operator-= (const Expression& other);
-  Expression operator*= (const Expression& other);
-  Expression operator/= (const Expression& other);
+  Expression operator/ (const Expression &other);
+  Expression operator+= (const Expression &other);
+  Expression operator-= (const Expression &other);
+  Expression operator*= (const Expression &other);
+  Expression operator/= (const Expression &other);
 
-  bool operator== (const Expression& other);
+  bool operator== (const Expression &other);
   bool operator== (double other);
   bool operator== (int other);
   bool operator== (std::string other);
   bool operator== (bool other);
-  bool operator!= (const Expression& other);
+  bool operator!= (const Expression &other);
   bool operator!= (double other);
   bool operator!= (int other);
   bool operator!= (std::string other);
   bool operator!= (const char other[]);
-  bool operator> (const Expression& other);
+  bool operator> (const Expression &other);
   bool operator> (int other);
   bool operator> (double other);
-  bool operator>= (const Expression& other);
-  bool operator< (const Expression& other);
-  bool operator<= (const Expression& other);
+  bool operator>= (const Expression &other);
+  bool operator< (const Expression &other);
+  bool operator<= (const Expression &other);
   bool operator! ();
-  bool operator&& (const Expression& other);
-  bool operator|| (const Expression& other);
-  };
+  bool operator&& (const Expression &other);
+  bool operator|| (const Expression &other);
+ };
 
 }
-std::ostream& operator<< (std::ostream& out, const Arcweave::Expression& e);
+std::ostream& operator<< (std::ostream& out, const Arcweave::Expression &e);
