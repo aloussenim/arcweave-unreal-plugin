@@ -24,7 +24,7 @@ TranspilerOutput ArcscriptTranspiler::runScript(std::string code) {
   ErrorListener lexerErrorListener;
   lexer.removeErrorListeners();
   lexer.addErrorListener(&lexerErrorListener);
-  
+
   CommonTokenStream tokens(&lexer);
 
   // Run the lexer
@@ -40,17 +40,17 @@ TranspilerOutput ArcscriptTranspiler::runScript(std::string code) {
 
   // Run the parser
   tree = parser.input();
-  
+
   ArcscriptVisitor visitor(&state);
-  
+
   // Run the visitor
   std::any res(visitor.visitInput(tree));
 
   result.changes = visitor.state->variableChanges;
-  
+
   result.output = visitor.state->outputs.GetText();
   result.result = res;
-  
+
   if (tree->script() != NULL) {
     result.type = SCRIPT;
   } else {
@@ -62,114 +62,114 @@ TranspilerOutput ArcscriptTranspiler::runScript(std::string code) {
 
 ARCSCRIPTTRANSPILER_API UTranspilerOutput* runScriptExport(const char* code, const char* elId, UVariable* variables, size_t varLength, UVisit* visits, size_t visitsLength)
 {
-    Arcweave::TranspilerOutput transpilerOutput;
+  Arcweave::TranspilerOutput transpilerOutput;
 
-    transpilerOutput.type = InputType::CONDITION;
+  transpilerOutput.type = InputType::CONDITION;
 
-    std::string sCode(code);
-    std::string sElId(elId);
+  std::string sCode(code);
+  std::string sElId(elId);
 
-    std::map<std::string, Variable> initVars;
-    for (size_t i = 0; i < varLength; i++) {
-        Variable var;
-        var.id = std::string(variables[i].id);
-        var.name = std::string(variables[i].name);
-        var.type = variables[i].type;
-        
-        if (var.type == VariableType::AW_STRING) {
-            var.value = std::string(variables[i].string_val);
-        }
-        else if (var.type == VariableType::AW_INTEGER) {
-            var.value = variables[i].int_val;
-        }
-        else if (var.type == VariableType::AW_DOUBLE) {
-            var.value = variables[i].double_val;
-        }
-        else if (var.type == VariableType::AW_BOOLEAN) {
-            var.value = variables[i].bool_val;
-        }
-        initVars[variables[i].id] = var;
+  std::map<std::string, Variable> initVars;
+  for (size_t i = 0; i < varLength; i++) {
+    Variable var;
+    var.id = std::string(variables[i].id);
+    var.name = std::string(variables[i].name);
+    var.type = variables[i].type;
+
+    if (var.type == VariableType::AW_STRING) {
+      var.value = std::string(variables[i].string_val);
     }
-
-    std::map<std::string, int> initVisits;
-    for (size_t i = 0; i < visitsLength; i++) {
-        initVisits[std::string(visits[i].elId)] = visits[i].visits;
+    else if (var.type == VariableType::AW_INTEGER) {
+      var.value = variables[i].int_val;
     }
-
-    Arcweave::ArcscriptTranspiler transpiler(sElId, initVars, initVisits);
-    transpilerOutput = transpiler.runScript(sCode);
-
-    UTranspilerOutput* uTranspilerOutput = new UTranspilerOutput();
-    uTranspilerOutput->output = copyAndAssignCharPointer(transpilerOutput.output.c_str());
-    uTranspilerOutput->type = transpilerOutput.type;
-    
-    if (transpilerOutput.type == InputType::CONDITION) {
-        uTranspilerOutput->conditionResult = std::any_cast<bool>(transpilerOutput.result);
+    else if (var.type == VariableType::AW_DOUBLE) {
+      var.value = variables[i].double_val;
     }
-
-    size_t changesLen = transpilerOutput.changes.size();
-
-    UVariableChange* variableChanges = new UVariableChange[changesLen];
-    size_t i = 0;
-    for (auto change : transpilerOutput.changes) {
-        UVariableChange uChange;
-        uChange.varId = copyAndAssignCharPointer(change.first.c_str());
-
-        if (std::holds_alternative<std::string>(change.second)) {
-            uChange.type = VariableType::AW_STRING;
-            std::string string_result = std::get<std::string>(change.second);
-            uChange.string_result = copyAndAssignCharPointer(string_result.c_str());
-        }
-        else if (std::holds_alternative<int>(change.second)) {
-            uChange.type = VariableType::AW_INTEGER;
-            uChange.int_result = std::get<int>(change.second);
-        }
-        else if (std::holds_alternative<double>(change.second)) {
-            uChange.type = VariableType::AW_DOUBLE;
-            uChange.double_result = std::get<double>(change.second);
-        }
-        else if (std::holds_alternative<bool>(change.second)) {
-            uChange.type = VariableType::AW_BOOLEAN;
-            uChange.bool_result = std::get<bool>(change.second);
-        }
-        variableChanges[i] = uChange;
-        i++;
+    else if (var.type == VariableType::AW_BOOLEAN) {
+      var.value = variables[i].bool_val;
     }
-    uTranspilerOutput->changes = variableChanges;
-    uTranspilerOutput->changesLen = changesLen;
+    initVars[variables[i].id] = var;
+  }
 
-    return uTranspilerOutput;
-    //std::cout << code << std::endl;
-    //std::cout << elId << std::endl;
-    //std::cout << _visits["test"] << std::endl;
-    /*try {
-        Arcweave::ArcscriptTranspiler transpiler(elId, initVars, _visits);
-        
-        try {
-            transpilerOutput = transpiler.runScript(code);
-        }
-        catch (std::exception& e) {
-            std::cerr << "Arcscript Transpiler failed during runScript: " << std::endl;
-            std::cerr << e.what() << std::endl;
-            return false;
-        }
+  std::map<std::string, int> initVisits;
+  for (size_t i = 0; i < visitsLength; i++) {
+    initVisits[std::string(visits[i].elId)] = visits[i].visits;
+  }
+
+  Arcweave::ArcscriptTranspiler transpiler(sElId, initVars, initVisits);
+  transpilerOutput = transpiler.runScript(sCode);
+
+  UTranspilerOutput* uTranspilerOutput = new UTranspilerOutput();
+  uTranspilerOutput->output = copyAndAssignCharPointer(transpilerOutput.output.c_str());
+  uTranspilerOutput->type = transpilerOutput.type;
+
+  if (transpilerOutput.type == InputType::CONDITION) {
+    uTranspilerOutput->conditionResult = std::any_cast<bool>(transpilerOutput.result);
+  }
+
+  size_t changesLen = transpilerOutput.changes.size();
+
+  UVariableChange* variableChanges = new UVariableChange[changesLen];
+  size_t i = 0;
+  for (auto change : transpilerOutput.changes) {
+    UVariableChange uChange;
+    uChange.varId = copyAndAssignCharPointer(change.first.c_str());
+
+    if (std::holds_alternative<std::string>(change.second)) {
+      uChange.type = VariableType::AW_STRING;
+      std::string string_result = std::get<std::string>(change.second);
+      uChange.string_result = copyAndAssignCharPointer(string_result.c_str());
     }
-    catch (std::exception &e) {
-        std::cerr << "Arcscript Transpiler failed during init: " << std::endl;
-        std::cerr << e.what() << std::endl;
-        return false;
+    else if (std::holds_alternative<int>(change.second)) {
+      uChange.type = VariableType::AW_INTEGER;
+      uChange.int_result = std::get<int>(change.second);
     }
-    return true;*/
+    else if (std::holds_alternative<double>(change.second)) {
+      uChange.type = VariableType::AW_DOUBLE;
+      uChange.double_result = std::get<double>(change.second);
+    }
+    else if (std::holds_alternative<bool>(change.second)) {
+      uChange.type = VariableType::AW_BOOLEAN;
+      uChange.bool_result = std::get<bool>(change.second);
+    }
+    variableChanges[i] = uChange;
+    i++;
+  }
+  uTranspilerOutput->changes = variableChanges;
+  uTranspilerOutput->changesLen = changesLen;
+
+  return uTranspilerOutput;
+  //std::cout << code << std::endl;
+  //std::cout << elId << std::endl;
+  //std::cout << _visits["test"] << std::endl;
+  /*try {
+    Arcweave::ArcscriptTranspiler transpiler(elId, initVars, _visits);
+
+    try {
+      transpilerOutput = transpiler.runScript(code);
+    }
+    catch (std::exception& e) {
+      std::cerr << "Arcscript Transpiler failed during runScript: " << std::endl;
+      std::cerr << e.what() << std::endl;
+      return false;
+    }
+  }
+  catch (std::exception &e) {
+    std::cerr << "Arcscript Transpiler failed during init: " << std::endl;
+    std::cerr << e.what() << std::endl;
+    return false;
+  }
+  return true;*/
 }
 
 ARCSCRIPTTRANSPILER_API void deallocateOutput(UTranspilerOutput* output) {
-    for (size_t i = 0; i < output->changesLen; i++) {
-        free(output->changes[i].varId);
-        if (output->changes[i].type == VariableType::AW_STRING) {
-            free(output->changes[i].string_result);
-        }
+  for (size_t i = 0; i < output->changesLen; i++) {
+    free(output->changes[i].varId);
+    if (output->changes[i].type == VariableType::AW_STRING) {
+      free(output->changes[i].string_result);
     }
-    delete[] output->changes;
-    free(output->output);
-    delete output;
+  }
+  delete[] output->changes;
+  free(output->output);
+  delete output;
 }
