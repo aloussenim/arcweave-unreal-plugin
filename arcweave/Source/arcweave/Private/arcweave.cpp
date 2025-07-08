@@ -32,6 +32,7 @@ void FarcweaveModule::StartupModule()
 #elif PLATFORM_LINUX
 	//Antlr4LibraryPath = FPaths::Combine(*BaseDir, TEXT("Binaries/ThirdParty/arcweaveLibrary/Linux/x86_64-unknown-linux-gnu/libExampleLibrary.so"));
 	#endif // PLATFORM_WINDOWS
+    
 	ArcscriptTranspilerHandle = !ArcscriptTranspilerPath.IsEmpty() ? FPlatformProcess::GetDllHandle(*ArcscriptTranspilerPath) : nullptr;
 
 	if (ArcscriptTranspilerHandle)
@@ -64,7 +65,10 @@ void FarcweaveModule::ShutdownModule()
 	// we call this function before unloading the module.
 	UE_LOG(LogArcwarePlugin, Warning, TEXT("Arcware plugin module shutdown!"));
 	// Free the dll handle
-	FPlatformProcess::FreeDllHandle(ArcscriptTranspilerHandle);
+    if (ArcscriptTranspilerHandle)
+    {
+	    FPlatformProcess::FreeDllHandle(ArcscriptTranspilerHandle);
+    }
 	ArcscriptTranspilerHandle = nullptr;
 #if WITH_EDITOR
 	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
