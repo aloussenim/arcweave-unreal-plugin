@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49D1DA5B2E1D7234001D4A22 /* ArcscriptHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49D1DA5A2E1D7234001D4A22 /* ArcscriptHelpers.cpp */; };
 		84AEEEA82DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEEA32DD8CF0D00171B0F /* ArcscriptParserBaseVisitor.cpp */; };
 		84AEEEA92DD8CF0D00171B0F /* ArcscriptParserVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEEA52DD8CF0D00171B0F /* ArcscriptParserVisitor.cpp */; };
 		84AEEEAA2DD8CF0D00171B0F /* ArcscriptVisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84AEEE9C2DD8CF0D00171B0F /* ArcscriptVisitor.cpp */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49D1DA5A2E1D7234001D4A22 /* ArcscriptHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ArcscriptHelpers.cpp; path = src/ArcscriptHelpers.cpp; sourceTree = "<group>"; };
 		84AEEE7F2DD8CD8600171B0F /* libArcscriptTranspiler.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libArcscriptTranspiler.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AEEE8D2DD8CF0D00171B0F /* ArcscriptErrorExceptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptErrorExceptions.h; path = src/ArcscriptErrorExceptions.h; sourceTree = "<group>"; };
 		84AEEE8E2DD8CF0D00171B0F /* ArcscriptErrorListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ArcscriptErrorListener.h; path = src/ArcscriptErrorListener.h; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		84AEEE762DD8CD8600171B0F = {
 			isa = PBXGroup;
 			children = (
+				49D1DA5A2E1D7234001D4A22 /* ArcscriptHelpers.cpp */,
 				84AEEE8D2DD8CF0D00171B0F /* ArcscriptErrorExceptions.h */,
 				84AEEE8E2DD8CF0D00171B0F /* ArcscriptErrorListener.h */,
 				84AEEE8F2DD8CF0D00171B0F /* ArcscriptErrorListener.cpp */,
@@ -238,6 +241,7 @@
 				84AEEEAC2DD8CF0D00171B0F /* ArcscriptTranspiler.cpp in Sources */,
 				84AEEEAD2DD8CF0D00171B0F /* ArcscriptExpression.cpp in Sources */,
 				84AEEEAE2DD8CF0D00171B0F /* ArcscriptParserBase.cpp in Sources */,
+				49D1DA5B2E1D7234001D4A22 /* ArcscriptHelpers.cpp in Sources */,
 				84AEEEAF2DD8CF0D00171B0F /* ArcscriptLexer.cpp in Sources */,
 				84AEEEB02DD8CF0D00171B0F /* ArcscriptErrorListener.cpp in Sources */,
 				84AEEEB12DD8CF0D00171B0F /* ArcscriptOutputs.cpp in Sources */,
