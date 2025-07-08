@@ -7,6 +7,7 @@
 #include "antlr4-runtime.h"
 #include "ArcscriptParserVisitor.h"
 
+
 namespace Arcweave {
 
 /**
@@ -17,14 +18,14 @@ class  ArcscriptParserBaseVisitor : public ArcscriptParserVisitor {
 public:
 
   virtual std::any visitInput(ArcscriptParser::InputContext *ctx) override {
-      return visitChildren(ctx);
+    return visitChildren(ctx);
   }
 
   virtual std::any visitScript(ArcscriptParser::ScriptContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual std::any visitScript_section(ArcscriptParser::Script_sectionContext* ctx) override {
+  virtual std::any visitScript_section(ArcscriptParser::Script_sectionContext *ctx) override {
       return visitChildren(ctx);
   }
 

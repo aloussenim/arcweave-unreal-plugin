@@ -8,21 +8,23 @@ public class arcweave : ModuleRules
 	public arcweave(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-
-        if (Target.Platform == UnrealTargetPlatform.Win64)
+		// Allow c++ exceptions.
+        bEnableExceptions = true;
+		if (Target.Platform == UnrealTargetPlatform.Win64)
 		{
-			bUseRTTI = true;
+			// bUseRTTI = true;
 			PublicAdditionalLibraries.Add(Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "x64", "Release", "ArcscriptTranspiler.lib"));
 			//PublicDelayLoadDLLs.Add("ArcscriptTranspiler.dll");
+			RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
 			RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
 		}
 		else if (Target.Platform == UnrealTargetPlatform.Mac)
 		{
-            string MacLibPath = Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "Mac", "Release");
+			string MacLibPath = Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "Mac", "Release");
 
-            PublicAdditionalLibraries.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
+			PublicAdditionalLibraries.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
 			RuntimeDependencies.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
-            PublicDelayLoadDLLs.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
+			PublicDelayLoadDLLs.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
 		}
 		PublicIncludePaths.AddRange(
 			new string[] {
@@ -47,6 +49,7 @@ public class arcweave : ModuleRules
 			{
 				"Core",
 				"CoreUObject",
+				"ArcscriptTranspiler",
 				"Projects",
 				"Json",
 				"JsonUtilities", 

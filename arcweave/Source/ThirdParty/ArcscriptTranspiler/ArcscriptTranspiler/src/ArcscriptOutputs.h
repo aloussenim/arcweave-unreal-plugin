@@ -9,6 +9,7 @@ namespace Arcweave
     class IOutputNode
     {
     public:
+        virtual ~IOutputNode() = default;
         virtual std::string GetText() = 0;
         virtual void MergeScriptOutput(std::string text) = 0;
     };
@@ -16,7 +17,8 @@ namespace Arcweave
     class IHasParagraphs
     {
     public:
-        virtual void AppendParagraph(std::string text) = 0;
+      virtual ~IHasParagraphs() = default;
+      virtual void AppendParagraph(std::string text) = 0;
     };
 
     class Paragraph: public IOutputNode

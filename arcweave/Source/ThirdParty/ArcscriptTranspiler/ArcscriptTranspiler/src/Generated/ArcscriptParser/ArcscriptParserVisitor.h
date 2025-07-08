@@ -6,9 +6,6 @@
 
 #include "antlr4-runtime.h"
 #include "ArcscriptParser.h"
-#include "ArcscriptHelpers.h"
-
-#include <vector>
 
 namespace Arcweave {
 

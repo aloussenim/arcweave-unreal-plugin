@@ -10,6 +10,17 @@
 #include "HttpModule.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Interfaces/IPluginManager.h"
+#include "Misc/Paths.h"
+
+#include "Misc/FileHelper.h"
+#include "HAL/FileManager.h"
+#include "Misc/ConfigCacheIni.h"
+#include "Internationalization/Regex.h"
+
+// For JSON Parsing
+#include "Dom/JsonObject.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
 
 void UArcweaveSubsystem::FetchDataFromAPI(FString APIToken, FString ProjectHash)
 {
