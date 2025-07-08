@@ -140,7 +140,7 @@ int testFile(std::filesystem::path path) {
 
 int main()
 {
-    const std::filesystem::path relativePath{ "..\\..\\..\\arcweave\\test\\valid.json" };
+    const std::filesystem::path relativePath{ "D:\\Git\\original\\arcweave-unreal-plugin\\arcweave\\Source\\arcweave\\test\\valid.json" };
 
     testFile(std::filesystem::absolute(relativePath));
 

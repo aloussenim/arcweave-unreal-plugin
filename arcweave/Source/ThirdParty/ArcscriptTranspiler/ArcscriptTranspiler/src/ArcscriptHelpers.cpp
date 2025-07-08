@@ -39,9 +39,6 @@ namespace Arcweave {
     if (const auto* pVal = std::any_cast<Expression>(&anyValue)) {
       return std::make_shared<Expression>(*pVal);
     }
-    if (const auto* pVal = std::any_cast<ConditionalSection>(&anyValue)) {
-      return std::make_shared<ConditionalSection>(*pVal);
-    }
 
     // Fallback for any unhandled types
     return std::monostate{};

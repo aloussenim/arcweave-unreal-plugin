@@ -13,7 +13,7 @@ std::any ArcscriptVisitor::visitInput(ArcscriptParser::InputContext * ctx)
   }
   // Condition
   Expression comp_cond = std::any_cast<Expression>(visitCompound_condition_or(ctx->compound_condition_or()));
-  return comp_cond.value;
+  return arcscriptValueToAny(comp_cond.getValue());
 }
 
 std::any ArcscriptVisitor::visitScript_section(ArcscriptParser::Script_sectionContext *ctx) {
@@ -33,12 +33,12 @@ std::any ArcscriptVisitor::visitScript_section(ArcscriptParser::Script_sectionCo
 
   if (const auto paragraph_contexts = ctx->paragraph(); !paragraph_contexts.empty())
   {
-      std::vector<std::any> result;
-      for (const auto paragraph_context : paragraph_contexts)
-      {
-          result.push_back(visitParagraph(paragraph_context));
-      }
-      return result;
+    std::vector<std::any> result;
+    for (const auto paragraph_context : paragraph_contexts)
+    {
+      result.push_back(visitParagraph(paragraph_context));
+    }
+    return result;
   }
 
   return visitChildren(ctx);
@@ -171,7 +171,7 @@ std::any ArcscriptVisitor::visitCompound_condition_or(ArcscriptParser::Compound_
 }
 
 std::any ArcscriptVisitor::visitCompound_condition_and(ArcscriptParser::Compound_condition_andContext *ctx) {
-    std::any cond_any = visitNegated_unary_condition(ctx->negated_unary_condition());
+  std::any cond_any = visitNegated_unary_condition(ctx->negated_unary_condition());
   Expression negated_unary_condition = std::any_cast<Expression>(cond_any);
   if (ctx->compound_condition_and() != NULL) {
     Expression compound_condition_and = std::any_cast<Expression>(visitCompound_condition_and(ctx->compound_condition_and()));
@@ -184,7 +184,7 @@ std::any ArcscriptVisitor::visitCompound_condition_and(ArcscriptParser::Compound
 std::any ArcscriptVisitor::visitNegated_unary_condition(ArcscriptParser::Negated_unary_conditionContext *ctx) {
   Expression unary_condition = std::any_cast<Expression>(visitUnary_condition(ctx->unary_condition()));
   if (ctx->NEG() != NULL || ctx->NOTKEYWORD() != NULL) {
-      return Expression(!unary_condition);
+    return Expression(!unary_condition);
   }
   return unary_condition;
 }
@@ -378,8 +378,8 @@ std::any ArcscriptVisitor::visitVariable_list(ArcscriptParser::Variable_listCont
 }
 
 std::any ArcscriptVisitor::visitArgument_list(ArcscriptParser::Argument_listContext *ctx) {
-    std::vector<std::any> arguments;
-    for (ArcscriptParser::ArgumentContext *argument : ctx->argument()) {
+  std::vector<std::any> arguments;
+  for (ArcscriptParser::ArgumentContext *argument : ctx->argument()) {
     arguments.push_back(visitArgument(argument));
   }
   return arguments;

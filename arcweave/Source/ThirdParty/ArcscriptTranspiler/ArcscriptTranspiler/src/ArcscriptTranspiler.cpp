@@ -132,6 +132,9 @@ ARCSCRIPTTRANSPILER_API UTranspilerOutput* runScriptExport(const char* code, con
       uChange.type = VariableType::AW_BOOLEAN;
       uChange.bool_result = std::get<bool>(change.second);
     }
+    else {
+      std::cout << uChange.varId << " not recognized, of type for" << uChange.type;
+    }
     variableChanges[i] = uChange;
     i++;
   }
