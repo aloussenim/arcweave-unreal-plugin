@@ -2920,6 +2920,7 @@
 					thirdparty/utfcpp/source/utf8/,
 				);
 				INSTALL_PATH = "$(SRCROOT)/../Mac/Release";
+				LD_DYLIB_INSTALL_NAME = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -2984,6 +2985,7 @@
 					thirdparty/utfcpp/source/utf8/,
 				);
 				INSTALL_PATH = "$(SRCROOT)/../Mac/Release";
+				LD_DYLIB_INSTALL_NAME = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				SDKROOT = macosx;
 			};
@@ -2998,7 +3000,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = lib;
 				INSTALL_PATH = "";
-				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
+				LD_DYLIB_INSTALL_NAME = "@rpath/$(EXECUTABLE_PATH)";
 				OBJROOT = "$(OBJROOT)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -3019,7 +3021,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = lib;
 				INSTALL_PATH = "";
-				LD_DYLIB_INSTALL_NAME = "$(EXECUTABLE_PATH)";
+				LD_DYLIB_INSTALL_NAME = "@rpath/$(EXECUTABLE_PATH)";
 				OBJROOT = "$(OBJROOT)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (

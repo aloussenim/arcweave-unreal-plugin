@@ -1,52 +1,74 @@
 using System;
 using System.IO;
 using UnrealBuildTool;
+
 public class ArcscriptTranspiler : ModuleRules
 {
     public ArcscriptTranspiler(ReadOnlyTargetRules Target) : base(Target)
     {
+        PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+        bEnableExceptions = true;
         Type = ModuleType.External;
 
         string ThirdPartyBasePath = Path.Combine(ModuleDirectory, "Source", "ThirdParty", "ArcscriptTranspiler");
 
         if (Target.Platform == UnrealTargetPlatform.Win64)
         {
-            // Add the import library
             PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "x64", "Release", "antlr4-runtime.lib"));
             PublicAdditionalLibraries.Add(Path.Combine(ModuleDirectory, "x64", "Release", "ArcscriptTranspiler.lib"));
 
-            // Delay-load the DLL, so we can load it from the right place first
             PublicDelayLoadDLLs.Add("antlr4-runtime.dll");
             PublicDelayLoadDLLs.Add("ArcscriptTranspiler.dll");
-            // Ensure that the DLL is staged along with the executable
+            
             RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/antlr4-runtime.dll");
             RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
         }
         else if (Target.Platform == UnrealTargetPlatform.Mac)
         {
-            // Ensure that the DLL is staged along with the executable
-            // Use Path.Combine with ModuleDirectory or ThirdPartyBasePath
-            RuntimeDependencies.Add(Path.Combine(ThirdPartyBasePath, "Mac", "Release", "libantlr4-runtime.dylib"));
-            RuntimeDependencies.Add(Path.Combine(ThirdPartyBasePath, "Mac", "Release", "libArcscriptTranspiler.dylib"));
+            string MacLibSourcePath = Path.Combine(ModuleDirectory, "Mac", "Release");
+
+            string AntlrLibSource = Path.Combine(MacLibSourcePath, "libantlr4-runtime.dylib");
+            string TranspilerLibSource = Path.Combine(MacLibSourcePath, "libArcscriptTranspiler.dylib");
+            string OutputDir = Path.Combine(PluginDirectory, "Binaries", "Mac");
+
+            PublicAdditionalLibraries.Add(AntlrLibSource);
+            PublicAdditionalLibraries.Add(TranspilerLibSource);
+            
+            PublicDelayLoadDLLs.Add("libantlr4-runtime.dylib");
+            PublicDelayLoadDLLs.Add("libArcscriptTranspiler.dylib");
+            
+            RuntimeDependencies.Add(Path.Combine(OutputDir, "libantlr4-runtime.dylib"), AntlrLibSource);
+            RuntimeDependencies.Add(Path.Combine(OutputDir, "ArcscriptTranspiler.dylib"), TranspilerLibSource);
+
+            // Add debug prints to verify the paths UBT is seeing
+            System.Console.WriteLine($"DEBUG (ArcscriptTranspiler.build.cs): AntlrLibSource: {AntlrLibSource}");
+            System.Console.WriteLine($"DEBUG (ArcscriptTranspiler.build.cs): TranspilerLibSource: {TranspilerLibSource}");
+            System.Console.WriteLine($"DEBUG (ArcscriptTranspiler.build.cs): TranspilerLibSource: {OutputDir}");
+                        
+          PublicSystemIncludePaths.AddRange(
+            new string[] {
+              MacLibSourcePath,
+            }
+        );
         }
 
-        // PublicIncludePaths should also use Path.Combine with the ModuleDirectory or ThirdPartyBasePath
-            PublicIncludePaths.AddRange(new string[]
-            {
-                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/antlr4-runtime/src",
-                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src",
-                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptParser",
-                "$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptLexer"
-            });
-
-            PublicDependencyModuleNames.AddRange(new string[] {
-                "Core",
-                "Projects",
-                "CoreUObject",
-                "Json",
-                "JsonUtilities",
-                "Engine",
-                "DeveloperSettings"
-            });
-        }
+        PublicIncludePaths.AddRange(new string[]
+        {
+            Path.Combine(ModuleDirectory, "antlr4-runtime", "src"),
+            Path.Combine(ModuleDirectory, "ArcscriptTranspiler", "src"),
+            Path.Combine(ModuleDirectory, "ArcscriptTranspiler", "src", "Generated", "ArcscriptParser"),
+            Path.Combine(ModuleDirectory, "ArcscriptTranspiler", "src", "Generated", "ArcscriptLexer")
+        });
+                
+        PublicDependencyModuleNames.AddRange(new string[] {
+            "Core",
+            "Projects",
+            "CoreUObject",
+            "Json",
+            "JsonUtilities",
+            "Engine",
+            "DeveloperSettings",
+            "HTTP"
+        });
     }
+}

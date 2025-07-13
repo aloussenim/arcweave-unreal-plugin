@@ -1,5 +1,5 @@
 ---
 triple:          'x86_64-apple-darwin'
-binary-path:     '/Users/admin/git/arcweave-unreal-plugin/arcweave/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libArcscriptTranspiler.dylib'
+binary-path:     '/Users/administrator/Documents/arcweave-unreal-plugin/arcweave/Source/ThirdParty/ArcscriptTranspiler/Mac/Release/libArcscriptTranspiler.dylib'
 relocations:     []
 ...

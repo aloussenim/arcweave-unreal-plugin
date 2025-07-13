@@ -10,31 +10,41 @@ public class arcweave : ModuleRules
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		// Allow c++ exceptions.
         bEnableExceptions = true;
+        // Type = ModuleType.External;
 		if (Target.Platform == UnrealTargetPlatform.Win64)
 		{
 			// bUseRTTI = true;
 			PublicAdditionalLibraries.Add(Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "x64", "Release", "ArcscriptTranspiler.lib"));
 			//PublicDelayLoadDLLs.Add("ArcscriptTranspiler.dll");
-			RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
+			RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/antlr4-runtime.lib");
 			RuntimeDependencies.Add("$(PluginDir)/Source/ThirdParty/ArcscriptTranspiler/x64/Release/ArcscriptTranspiler.dll");
 		}
-		else if (Target.Platform == UnrealTargetPlatform.Mac)
-		{
-			string MacLibPath = Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "Mac", "Release");
+        else if (Target.Platform == UnrealTargetPlatform.Mac)
+        {
+            string MacLibSourcePath = Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "Mac", "Release");
 
-			PublicAdditionalLibraries.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
-			RuntimeDependencies.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
-			PublicDelayLoadDLLs.Add(Path.Combine(MacLibPath, "libArcscriptTranspiler.dylib"));
-		}
-		PublicIncludePaths.AddRange(
-			new string[] {
-				Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "ArcscriptTranspiler", "src"),
-				// Source/ThirdParty/ArcscriptTranspiler/ArcscriptTranspiler/src/Generated/ArcscriptLexer
-				Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "ArcscriptTranspiler", "src", "Generated", "ArcscriptParser"),
-				Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "ArcscriptTranspiler", "src", "Generated", "ArcscriptLexer"),
-				Path.Combine(PluginDirectory, "Source", "ThirdParty", "ArcscriptTranspiler", "antlr4-runtime", "src"),
-			}
-		);
+            string AntlrLibSource = Path.Combine(MacLibSourcePath, "libantlr4-runtime.dylib");
+            string TranspilerLibSource = Path.Combine(MacLibSourcePath, "libArcscriptTranspiler.dylib");
+            string OutputDir = Path.Combine(PluginDirectory, "Binaries", "Mac");
+
+            PublicAdditionalLibraries.Add(AntlrLibSource);
+            PublicAdditionalLibraries.Add(TranspilerLibSource);
+
+            RuntimeDependencies.Add(Path.Combine(OutputDir, "libantlr4-runtime.dylib"), AntlrLibSource);
+            RuntimeDependencies.Add(Path.Combine(OutputDir, "libArcscriptTranspiler.dylib"), TranspilerLibSource);
+
+            // Add debug prints to verify the paths UBT is seeing
+            System.Console.WriteLine($"DEBUG (arcweave.build.cs): AntlrLibSource: {AntlrLibSource}");
+            System.Console.WriteLine($"DEBUG (arcweave.build.cs): TranspilerLibSource: {TranspilerLibSource}");
+            System.Console.WriteLine($"DEBUG (arcweave.build.cs): OutputDir: {OutputDir}");
+            
+          PublicSystemLibraryPaths.AddRange(
+            new string[] {
+              OutputDir,
+            }
+        );
+        }
+        
 				
 		
 		PrivateIncludePaths.AddRange(
@@ -43,18 +53,22 @@ public class arcweave : ModuleRules
 			}
 		);
 			
-		
-		PublicDependencyModuleNames.AddRange(
+		PublicIncludePathModuleNames.AddRange(
+            new string[]
+            {
+                "ArcscriptTranspiler"
+            });
+
+        PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
 				"Core",
 				"CoreUObject",
-				"ArcscriptTranspiler",
 				"Projects",
 				"Json",
-				"JsonUtilities", 
-				"Engine",
-				"HTTP"
+				"JsonUtilities",
+				"HTTP",
+                "Engine"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

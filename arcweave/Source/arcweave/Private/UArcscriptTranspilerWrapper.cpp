@@ -1,9 +1,7 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "UArcscriptTranspilerWrapper.h"
-
-#include "Core.h"
 #include <string>
 
 THIRD_PARTY_INCLUDES_START
