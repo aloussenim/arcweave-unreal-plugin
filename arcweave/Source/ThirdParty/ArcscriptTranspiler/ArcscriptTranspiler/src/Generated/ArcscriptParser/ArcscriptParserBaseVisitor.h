@@ -26,7 +26,7 @@ public:
   }
 
   virtual std::any visitScript_section(ArcscriptParser::Script_sectionContext *ctx) override {
-      return visitChildren(ctx);
+    return visitChildren(ctx);
   }
 
   virtual std::any visitBlockquote(ArcscriptParser::BlockquoteContext *ctx) override {

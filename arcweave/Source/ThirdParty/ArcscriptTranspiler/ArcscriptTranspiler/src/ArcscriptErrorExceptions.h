@@ -10,7 +10,7 @@ namespace Arcweave {
     public:
     std::string message;
     int line = -1;
-    size_t charPositionInLine = 0;
+    int charPositionInLine = -1;
     RuntimeErrorException(std::string msg) {
       message = msg;
     };
@@ -36,7 +36,7 @@ namespace Arcweave {
     public:
     std::string message;
     int line = -1;
-    size_t charPositionInLine = 0;
+    int charPositionInLine = -1;
     ParseErrorException(std::string msg) {
       message = msg;
     };

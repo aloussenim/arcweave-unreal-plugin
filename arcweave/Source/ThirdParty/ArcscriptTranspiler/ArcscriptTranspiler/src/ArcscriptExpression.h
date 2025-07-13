@@ -10,22 +10,22 @@ namespace Arcweave {
 
   // All the types that can be held in an expression.
   using ArcscriptBasicValue = std::variant <std::string, bool, int, double>;
-  class Expression {
-  private:
-    struct NumberValues {
-      double value1;
-      double value2;
-      bool hasDoubles = false;
-    };
 
-    static NumberValues doubleValues(ArcscriptBasicValue value1, ArcscriptBasicValue value2);
+class Expression {
+private:
+  struct NumberValues {
+    double value1;
+    double value2;
+    bool hasDoubles = false;
+  };
 
-    static std::string valueToString(ArcscriptBasicValue value);
-    static bool valueToBool(ArcscriptBasicValue value);
+  static NumberValues doubleValues(ArcscriptBasicValue value1, ArcscriptBasicValue value2);
+
+  static std::string valueToString(ArcscriptBasicValue value);
+  static bool valueToBool(ArcscriptBasicValue value);
 public:
   ArcscriptBasicValue value;
   Expression() {
-    // empty value.
     value = ArcscriptBasicValue();
   }
   Expression(std::string _value) {

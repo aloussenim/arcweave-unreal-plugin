@@ -17,8 +17,8 @@ namespace Arcweave
     class IHasParagraphs
     {
     public:
-      virtual ~IHasParagraphs() = default;
-      virtual void AppendParagraph(std::string text) = 0;
+        virtual ~IHasParagraphs() = default;
+        virtual void AppendParagraph(std::string text) = 0;
     };
 
     class Paragraph: public IOutputNode
